@@ -1,48 +1,41 @@
 import tkinter as tk
-import os
 
 
-# import auto_save_function
+class myApp:
+    def __init__(self, window):
+        self.amount_in_bank = tk.Label(
+            window, text="How much is in your bank?")
 
+        self.answer_1 = tk.Entry()
 
-# body
-window = tk.Tk()
-window.title("Auto Save Calculator")
-window.maxsize(350, 500)
+        self.percentage_save = tk.Label(
+            text="What is the percentage you would like to save?")
 
+        self.answer_2 = tk.Entry()
+        self.answer_3 = tk.Entry()
 
-label = tk.Label(text="Auto Save")
-label.pack()
+        self.amount_in_bank.place(x=20, y=50)
+        self.answer_1.place(x=200, y=50)
 
-# Amount in bank
-question1 = tk.Label(text="How much is in your bank?")
-question1.pack()
-answer1 = tk.Entry()
-answer1.pack()
+        self.percentage_save.place(x=20, y=100)
+        self.answer_2.place(x=200, y=130)
 
-# Percentage of saving
-question2 = tk.Label(text="What is the percentage you would like to save?")
-question2.pack()
-answer2 = tk.Entry()
-answer2.pack()
+        self.answer_3.place(x=100, y=200)
 
-# DISPLAY USE INPUT
+        self.button1 = tk.Button(window, text="Submit", command=self.results)
+        self.button1.place(x=250, y=350)
 
+    def results(self):
+        self.answer_3.delete(0, 'end')
+        self.display1 = tk.Label(text="The amount entered is : ")
+        results = self.answer_1.get()
+        self.answer_3.insert(tk.END, str(results))
 
-def results():
-    display1 = tk.Label(text="The amount entered is : ")
-    # display2 = tk.Label(text=answer1)
-
-    display1.pack()
-    # display2.pack()
-
-
-submit_button = tk.Button(window, text="Submit", command=results)
-submit_button.pack(side='bottom')
-
-# canvas
-canvas = tk.Canvas(window, height=500, width=350)
-canvas.pack()
 
 # run app
+window = tk.Tk()
+my_app = myApp(window)
+window.title("Auto Save Calculator")
+window.geometry("350x500")
+window.maxsize(350, 500)
 window.mainloop()
