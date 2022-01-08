@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import Label, ttk
 from tkinter import font
+import auto_save_function as asf
 
 app_width = 350
 app_height = 500
@@ -13,28 +14,47 @@ class myApp:
 
         # app title
         self.display_title = tk.Label(
-            text="Welcome to Auto Save", font=("Arial", 15), background='#5ABFFF', fg="white")
+            text="Welcome to Piggy Bank", font=("Arial", 15), background='#5ABFFF', fg="white")
         self.display_title.place(x=(app_width/4)-10, y=100)
 
         # app start button
         self.start_button = tk.Button(
-            window, text="Start", command=self.after_menu, width=20)
+            window, text="Start Saving!", command=self.after_menu, width=20)
         self.start_button.place(x=(app_width/3)-10, y=200)
 
     # checking if inputs are numbers
     def numbers_only(self):
         self.amount_in_bank_results_dulpicate_output.delete(0, 'end')
         self.percentage_save_dulpicate_output.delete(0, 'end')
+        self.error_message1 = tk.Label(window,
+                                       text="Please enter a number(s).", background='#5ABFFF', fg="#9B0000")
+        new_num = self.amount_in_bank_results.get()
+
         try:
-            new_num = float(self.amount_in_bank_results.get())
-            self.returning_num1 = round(new_num, 2)
-            self.error_message1.destroy()
+            new_val = float(new_num)
+            print("float")
+            self.returning_num1 = "{:.2f}".format(round(new_val, 2))
+            self.error_message1.config(text=" ")
 
         except ValueError:
-            # error messages
-            self.error_message1 = tk.Label(
-                text="Please enter a number(s).", background='#5ABFFF', fg="#9B0000")
             self.error_message1.place(x=200, y=70)
+
+        # if new_num != str:
+        #     new_val = float(self.amount_in_bank_results.get())
+        #     self.returning_num1 = "{:.2f}".format(round(new_val, 2))
+        #     self.error_message1.destroy()
+        # else:
+        #     # error messages
+        #     self.error_message1.place(x=200, y=70)
+
+        # try:
+        #     new_num = float(self.amount_in_bank_results.get())
+        #     self.returning_num1 = "{:.2f}".format(round(new_num, 2))
+        #     self.error_message1.destroy()
+
+        # except ValueError:
+        #     # error messages
+        #     self.error_message1.place(x=200, y=70)
 
     def after_menu(self):
         # clean screen
@@ -42,10 +62,11 @@ class myApp:
         self.start_button.destroy()
 
         # dropdown menu
-        self.list_of_options = ('percentage', 'amount')
+        self.list_of_options = (
+            'percent', 'amount', 'round to tenth dollar', 'round to hundredth dollar')
         self.dropdown_list = tk.StringVar()
         self.list_of_options = ttk.Combobox(
-            window, width=10, textvariable=self.dropdown_list, values=self.list_of_options, state="readonly")
+            window, width=20, textvariable=self.dropdown_list, values=self.list_of_options, state="readonly")
 
         # Amount in bank
         self.amount_in_bank = tk.Label(
@@ -60,13 +81,13 @@ class myApp:
             text="How much would you like to save?")
 
         self.saving_amount = tk.Entry()
-        self.saving_amount.place(x=75, y=130)
+        self.saving_amount.place(x=50, y=130)
 
         # option for amount to save (percentage or amount)
         self.list_of_options.grid(column=1, row=2)
 
         self.percentage_save.place(x=20, y=100)
-        self.list_of_options.place(x=220, y=130)
+        self.list_of_options.place(x=175, y=130)
         self.list_of_options.current(0)
 
         # submit button
@@ -119,7 +140,7 @@ window = tk.Tk()
 window.configure(background='#5ABFFF')
 
 my_app = myApp(window)
-window.title("Auto Save Calculator")
+window.title("Piggy Bank")
 window.geometry("350x500")
 window.minsize(app_width, app_height)
 window.maxsize(app_width, app_height)
