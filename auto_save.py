@@ -26,8 +26,7 @@ class myApp:
     def numbers_only(self):
         self.amount_in_bank_results_dulpicate_output.delete(0, 'end')
         self.percentage_save_dulpicate_output.delete(0, 'end')
-        self.error_message1 = tk.Label(window,
-                                       text="Please enter a number(s).", background='#5ABFFF', fg="#9B0000")
+        self.error_message1 = tk.Label(window,text="Please enter a number(s).", background='#5ABFFF', fg="#9B0000")
         new_num = self.amount_in_bank_results.get()
 
         try:
